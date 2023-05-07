@@ -1,6 +1,11 @@
-function generateAuthHeaders(){
+const crypto = require('crypto');
+
+
+
+function generateAuthHeaders() {
     const apiSecret = process.env.API_SECRET;
-    const timestamp = Math.floor(Date.now() / 1000);
+    console.log("apiSecret",apiSecret);
+    const timestamp = "message"
 
     const hmac = crypto.createHmac('sha512', apiSecret);
     hmac.update(timestamp.toString());
