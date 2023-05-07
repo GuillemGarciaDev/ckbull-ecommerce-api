@@ -3,8 +3,8 @@ const generateAuthHeaders = require('../utils/authenticate');
 const { default: axios } = require('axios');
 var router = express.Router();
 
-/* GET sign-in-request. */
-router.get('/login',  async function(req, res, next) {
+/* POST sign-in-request. */
+router.post('/login',  async function(req, res, next) {
   const { apiKeyHeader, timestampHeader, signatureHeader } = generateAuthHeaders();
     const headers = {
       "x-api-key": apiKeyHeader,
@@ -26,6 +26,14 @@ router.get('/login',  async function(req, res, next) {
 router.get('/login/:id', async function(req, res, next) {
 
   const response = await axios.get(`${process.env.CKBULL_SIGNER_API}/api/sign-in-requests/${req.params.id}/status`)
+  console.log(response.data);
+  res.send(response.data)
+});
+
+/* GET sign-in-request */
+router.get('/sign-in-request/:id', async function(req, res, next) {
+
+  const response = await axios.get(`${process.env.CKBULL_SIGNER_API}/api/sign-in-requests/${req.params.id}`)
   console.log(response.data);
   res.send(response.data)
 });
